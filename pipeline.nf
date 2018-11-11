@@ -63,7 +63,7 @@ process pbsv {
     set depth, basename, file(bam) from  bam_pbsv
 
     output:
-    set depth, basename, "pbsv", file("*.svsig.gz") into pbsv_vcf_ch
+    set depth, basename, "pbsv", file("*.pbsv.vcf") into pbsv_vcf_ch
 
     script:
     '''
