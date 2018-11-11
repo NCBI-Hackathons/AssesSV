@@ -12,8 +12,31 @@ println "outdir: $params.outdir"
 ref = file(params.reference_fasta)
 bed_path = file(params.smrtsv_bed)
 
+input_depth = 30
 bams = Channel.fromPath(params.input_bam)
-bams.into { bam_sniffles; bam_pbsv; }
+depths = Channel.from(5,10,20,30)
+bam_depths = depths.combine(bams).map{ depth, bam -> tuple(depth,bam.basename,bam)} 
+
+processdownsample{
+    input:
+    set depth, basename, bam from bam_depths
+
+    output:
+    set basename, file("*.ds.bam") into ds_bams #need to add bai files?
+
+    script
+    '''
+      frac=$( bc -l <<< "scale=16; !{depth}/!{input_depth}" )
+
+      if [[ frac < 0.9 ]]; then 
+        sambamba view -t 8 -f bam -s $frac -o "!{basename}.${depth}x.bam" "!{bam}"
+      else
+        ln -s "!{bam} "!{basename}_!{depth}x.bam"
+      fi
+    '''
+}
+
+ds_bams.into { bam_sniffles; bam_pbsv; }
 
 /*
  * sniffles
