@@ -42,11 +42,12 @@ process pbsv {
     file bam from bam_pbsv
 
     output:
-    file "pbsv.vcf" into pbsv_vcf_ch
+    output:
+    file "pbsv.svsig.gz" into pbsv_vcf_ch
 
     script:
     """
-
+    pbsv discover $bam pbsv.svsig.gz
     """
 }
 
