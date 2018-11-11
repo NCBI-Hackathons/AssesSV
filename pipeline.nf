@@ -67,7 +67,8 @@ process pbsv {
 
     script:
     '''
-    pbsv discover !{bam} !{basename}.!{depth}x.pbsv.vcf.gz
+    pbsv discover !{bam} !{basename}.!{depth}x.pbsv.svsig.gz
+    pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
     '''
 }
 
