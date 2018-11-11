@@ -11,6 +11,7 @@ println "outdir: $params.outdir"
 
 ref = file(params.reference_fasta)
 bed_path = file(params.smrtsv_bed)
+sniffles_path =/home/ubuntu/Sniffles-1.0.10/bin/sniffles-core-1.0.10/sniffles/
 
 input_depth = 30
 bams = Channel.fromPath(params.input_bam)
@@ -22,7 +23,7 @@ processdownsample{
     set depth, basename, bam from bam_depths
 
     output:
-    set basename, file("*.ds.bam") into ds_bams #need to add bai files?
+    set depth, basename, file("*.ds.bam") into ds_bams #need to add bai files?
 
     script
     '''
@@ -45,14 +46,15 @@ process sniffles {
     publishDir "${params.outdir}/sniffles", mode:'copy'
 
     input:
-    file bam from bam_sniffles
+    set depth, basename, file (bam) into bam_sniffles
+ 
 
     output:
     file "sniffles.vcf" into sniffles_vcf_ch
 
     script:
     """
-
+    "!{sniffles_path}/sniffles" -s 3 --skip_parameter_estimation -m !{bam} -v "!{basename}.${depth}x.Sniffles_s3_ignoreParam.vcf"
     """
 }
 /*
