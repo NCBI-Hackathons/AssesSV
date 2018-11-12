@@ -61,6 +61,8 @@ process sniffles {
  * pbsv variant caller
  */
 process pbsv {
+    cpus 4
+
     publishDir "${params.outdir}/pbsv", mode:'copy'
 
     input:
@@ -72,7 +74,7 @@ process pbsv {
     shell:
     '''
     pbsv discover !{bam} !{basename}.!{depth}x.pbsv.svsig.gz
-    pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
+    pbsv call -j !{task.cpus} !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
     bgzip -c <(bedtools sort -header -i *.vcf) > !{basename}.!{depth}x.pbsv.sort.vcf.gz
     tabix -p vcf *.sort.vcf.gz
     '''
