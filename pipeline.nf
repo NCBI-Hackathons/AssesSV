@@ -45,13 +45,13 @@ process sniffles {
     set depth, basename, file(bam) from bam_sniffles
 
     output:
-    set depth, basename, val("sniffles"), file("*.vcf.gz"),file("*.vcf.gz.tbi") into sniffles_vcf_ch
+    set depth, basename, val("sniffles"), file("*sort.vcf.gz"),file("*sort.vcf.gz.tbi") into sniffles_vcf_ch
 
     shell:
     '''
     sniffles -s 3 --skip_parameter_estimation -m !{bam} -v "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.vcf"
-    bgzip *.vcf
-    tabix -p vcf *.vcf.gz
+    bgzip -c <(bedtools sort -header -i *.vcf) > "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.sort.vcf.gz"
+    tabix -p vcf *.sort.vcf.gz
     '''
 }
 
@@ -65,14 +65,14 @@ process pbsv {
     set depth, basename, file(bam) from  bam_pbsv
 
     output:
-    set depth, basename, val("pbsv"), file("*.pbsv.vcf.gz"), file("*.pbsv.vcf.gz.tbi") into pbsv_vcf_ch
+    set depth, basename, val("pbsv"), file("*.pbsv.sort.vcf.gz"), file("*.pbsv.sort.vcf.gz.tbi") into pbsv_vcf_ch
 
     shell:
     '''
     pbsv discover !{bam} !{basename}.!{depth}x.pbsv.svsig.gz
     pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
-    bgzip *.vcf
-    tabix -p vcf *.vcf.gz
+    bgzip -c <(bedtools sort -header -i *.vcf) > !{basename}.!{depth}x.pbsv.sort.vcf.gz
+    tabix -p vcf *.sort.vcf.gz
     '''
 }
 
