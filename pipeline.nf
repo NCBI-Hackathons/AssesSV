@@ -4,7 +4,7 @@
 params.input_bams = "/home/ubuntu/data/HG002.10kb.Q20.GRCh38.pbmm2.bam"
 params.outdir = "/home/ubuntu/pipeline-output"
 params.reference_fasta_path = "/home/ubuntu/data/reference/hs37d5.fa"
-params.bed = "/home/ubuntu/data/candidates.bam"
+params.bed = "/home/ubuntu/data/giab-SV/test.HG002_SVs_Tier1_v0.6.bed"
 
 println "comparing input bams: $params.input_bams with $params.truth_vcf"
 println "outdir: $params.outdir"
@@ -91,7 +91,7 @@ process truvari {
 
      shell:
      '''
-     truvari --passonly -b !{params.truth_vcf} -c !{vcf} -o out -f !{ref} --giabreport
+     truvari --includebed !{params.bed} --passonly -b !{params.truth_vcf} -c !{vcf} -o out -f !{ref} --giabreport
      mv out/giab_report.txt out/!{basename}.!{depth}.!{caller}.giab_report.txt
      mv out/tp-base.vcf out/!{basename}.!{depth}.!{caller}.tp-base.vcf
      '''
