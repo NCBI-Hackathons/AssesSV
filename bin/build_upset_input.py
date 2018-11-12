@@ -4,11 +4,9 @@ import os
 import gzip
 import sys
 
-#path_to_vcf_files = "/home/ubuntu/data/giab-SV/hs37d5"
 path_to_vcf_files = sys.argv[1]
 true_variants = sys.argv[2]
 vcf_files = glob(path_to_vcf_files + "/giab*.txt")
-vcf_files = ["/home/ubuntu/data/giab-SV/hs37d5/tp-base.vcf", "/home/ubuntu/data/giab-SV/hs37d5/test.vcf"]
 
 all_variants = []
 summary = {}
