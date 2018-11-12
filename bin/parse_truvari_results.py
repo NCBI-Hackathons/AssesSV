@@ -4,7 +4,7 @@ import os
 import sys
 
 path_to_files = sys.argv[1]
-files = glob(path_to_files + "/giab*.txt")
+files = glob(path_to_files + "/*giab_report.txt")
 print("FILES: ", files)
 with open ("truvari_summary.txt", "w") as outfile:
     outfile.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format("sample", "FN", "FP", "TP", "f1", "precision", "recall"))

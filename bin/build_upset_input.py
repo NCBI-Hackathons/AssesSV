@@ -7,7 +7,8 @@ import sys
 
 path_to_vcf_files = sys.argv[1]
 true_variants = sys.argv[2]
-vcf_files = glob(path_to_vcf_files + "/giab*.txt")
+vcf_files = glob(path_to_vcf_files + "/*tp-base.vcf")
+print(vcf_files)
 
 all_variants = []
 summary = {}
