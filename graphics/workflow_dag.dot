@@ -1,0 +1,70 @@
+digraph "dag" {
+p0 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+p2 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+p0 -> p2 [label="bams"];
+
+p1 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.from"];
+p2 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+p1 -> p2 [label="depths"];
+
+p2 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+p3 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+p2 -> p3;
+
+p3 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+p4 [label="downsample"];
+p3 -> p4 [label="bam_depths"];
+
+p4 [label="downsample"];
+p5 [label="sniffles"];
+p4 -> p5 [label="bam_sniffles"];
+
+p4 [label="downsample"];
+p6 [label="pbsv"];
+p4 -> p6 [label="bam_pbsv"];
+
+p5 [label="sniffles"];
+p7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="mix"];
+p5 -> p7 [label="sniffles_vcf_ch"];
+
+p6 [label="pbsv"];
+p7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="mix"];
+p6 -> p7 [label="pbsv_vcf_ch"];
+
+p7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="mix"];
+p8 [label="truvari"];
+p7 -> p8;
+
+p8 [label="truvari"];
+p13 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="flatten"];
+p8 -> p13 [label="truvari_giab_ch"];
+
+p8 [label="truvari"];
+p9 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="flatten"];
+p8 -> p9 [label="truvari_tp_base_ch"];
+
+p9 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="flatten"];
+p10 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="toList"];
+p9 -> p10;
+
+p10 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="toList"];
+p11 [label="combine_truvari_tp"];
+p10 -> p11;
+
+p11 [label="combine_truvari_tp"];
+p12 [shape=point];
+p11 -> p12 [label="upset_input_ch"];
+
+p13 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="flatten"];
+p14 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="toList"];
+p13 -> p14;
+
+p14 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="toList"];
+p15 [label="combine_truvari_giab"];
+p14 -> p15;
+
+p15 [label="combine_truvari_giab"];
+p16 [shape=point];
+p15 -> p16 [label="combined_giab_ch"];
+
+}
