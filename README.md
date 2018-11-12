@@ -1,26 +1,51 @@
-# Assessing-SVs-in-improved-pacbio-datasets
+# AssesSV
 
-Datasets: 
-PB New (2018): 10 kb, 15 kb. 99% correct with circular consensus filtered by QV20. 
-PB Old: Not here yet. 25 kb. 85% correct pre-polishing. data > subreads > 2015. 
-Depth is ~28X
-Aligned to Hg2 (Adaptive gap penalty while mapping)
-Truth set exists (GIAB) 
+## Assessing contribution of depth, read quality, and algorithm on Structural Variation calling.
 
-Tools (DL Y/N):
-Alignment: minimap2 (Y), NGMLR (Y)
-	Blasr not great for SVs. Doesn't do supplemental alignments
-	The above two do supplemental alignments (multiple primaries)
-PBSV can call translocations/inversions as well (Y)
-	Came out a month ago
-Sniffles (Y)
-SMRT-SV (Y)
-MetaSV (N)
-TruVari- used to benchmark SV calls (Y)
+Structural Variants (SVs), defined as insertions and deletions greater than 50 bp, inversions, and translocations, account for the majority of human genomic variation by total base pair count and have been implicated in genomic disorders. 
 
-Depth titration: Downsampling. Select a region. Re-align with a new aligner and use all callers.
-Aligner: NGMLR vs. minimap. 
-Caller: Quantify how those SV calls improve between old (sub-par reads) vs. new (new nicer reads) alignments. 
+Pacific Biosciences has recently released two ~30-fold datasets of high-fidelity long reads, with mean insert sizes of 10 and 15 kb and read qualities above 99%. Because these high fidelity reads have a different error profile from PacBio subreads, it is unclear whether they will have similar performance in long read SV callers.  To test this, we cover the parameter space by comparing SV calls (using [truvari](https://github.com/spiralgenetics/truvari)) across error modes (high-fidelity vs raw subreads), read length (10 kbp vs 15 kbps vs 10-50 kbp ), aligner ([minimap2](https://github.com/lh3/minimap2) vs [NGM-LR](https://github.com/philres/ngmlr)), and variant caller ([Sniffles](https://github.com/fritzsedlazeck/Sniffles) vs [pbsv](https://github.com/PacificBiosciences/pbsv)).
+
+## Datasets: 
+
+[PacBio HG002 High-Fidelity QV20 10 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_10kb/)
+[PacBio HG002 High-Fidelity QV20 15 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_15kb/)
+[PacBio HG002 10-50 kbp Subreads, ~70-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_MtSinai_NIST/PacBio_fasta/)
+
+[HG002 Tier 1 SV calls, version 0.6]()
+
+## Conditions:
+
+### Depth titration:
+Starting at ~30-fold, downsample to 20-fold, 10-fold, 5-fold coverage
+
+### Aligner:
+#### NGMLR settings:
+```bash
+ngmlr --presets pacbio \
+	--query "${FASTQ}" \
+	--reference "${REF}" \
+	--rg-id "${SAMPLE}_${FASTQ##*/}" \
+	--rg-sm "${SAMPLE}"
+```
+#### minimap2 settings:
+```bash
+minimap2 -t 16 \
+        -a -k 19 \
+        -O 5,56 -E 4,1 \
+        -B 5 -z 400,50 -r 2k \
+        --eqx --MD -Y \
+        --secondary=no \
+        -R "@RG\tID:${SAMPLE}_${FASTQ##*/}\tSM:${SAMPLE}" \
+        "${REF}" "${FASTQ}"
+```
+### Caller:
+#### Sniffles settings:
+```bash
+```
+#### pbsv settings:
+```bash
+```
 
 Figures:
 Venn diagram OR bar-dot plot (upset plot) for concordance
