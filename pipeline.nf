@@ -17,6 +17,7 @@ depths = Channel.from(5,10,20,30)
 bam_depths = depths.combine(bams).map{ depth, bam -> tuple(depth,"${bam.baseName}",file(bam)) } 
 
 process downsample{
+    cpus 8
     input:
     set depth, basename, bam from bam_depths
 
@@ -28,7 +29,7 @@ process downsample{
     frac=$( bc -l <<< "scale=16; !{depth}/!{input_depth}" )
 
     if [[ $frac < 0.9 ]]; then 
-        sambamba view -t 8 -f bam -s $frac -o "!{basename}.!{depth}x.bam" "!{bam}"
+        sambamba view -t !{task.cpus} -f bam -s $frac -o "!{basename}.!{depth}x.bam" "!{bam}"
     else
         ln -s "!{bam}" "!{basename}_!{depth}x.bam"
     fi
@@ -39,6 +40,7 @@ process downsample{
  * sniffles variant caller
  */
 process sniffles {
+    cpus 3
     publishDir "${params.outdir}/sniffles", mode:'copy'
 
     input:
@@ -49,7 +51,7 @@ process sniffles {
 
     shell:
     '''
-    sniffles -s 3 --skip_parameter_estimation -m !{bam} -v "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.vcf"
+    sniffles -t !{task.cpus} -s 3 --skip_parameter_estimation -m !{bam} -v "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.vcf"
     bgzip -c <(bedtools sort -header -i *.vcf) > "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.sort.vcf.gz"
     tabix -p vcf *.sort.vcf.gz
     '''
@@ -115,8 +117,8 @@ process combine_truvari_tp {
 }
 
 /*
-* coalesces truvari giab files into a single report
-*/
+ * coalesces truvari giab files into a single report
+ */
 process combine_truvari_giab {
     publishDir "${params.outdir}/truvari", mode: 'copy'
     input:
