@@ -110,7 +110,7 @@ process combine_truvari_tp {
 
     shell:
     '''
-    cat * > upset_input.txt
+    build_upset_input.py . !{params.truth_vcf}
     '''
 }
 
@@ -123,10 +123,10 @@ process combine_truvari_giab {
     file ('*') from truvari_giab_ch.flatten().toList()
 
     output:
-    file "all_truvari_comparisons.tsv" into combined_giab_ch
+    file "truvari_summary.txt" into combined_giab_ch
 
     shell:
     '''
-    cat * > all_truvari_comparisons.tsv
+    parse_truvari_results.py .
     '''
 }
