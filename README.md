@@ -1,4 +1,4 @@
-# AssesSV
+![alt text](https://github.com/NCBI-Hackathons/AssesSV/blob/master/graphics/assessv_v1.png)
 
 ## Assessing contribution of depth, read quality, and algorithm on Structural Variation calling.
 
@@ -50,23 +50,5 @@ pbsv discover !{bam} !{basename}.!{depth}x.pbsv.svsig.gz
 pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
 ```
 
-Figures:
-Venn diagram OR bar-dot plot (upset plot) for concordance
-Case studies: insertion, deletion, inversion, duplication
-	Correct vs. incorrect 
-	Called vs. uncalled
-
-Project Flow:
-- Select site: Chromosome 22
-- Downsample to ?X
-
-Workflow 1: Input is 1-2 BAMs vs. old, 1 BAM x NGMLR vs. minimap, 1-2 BAMs x ?X
-B -> BAM stats -> variant caller -> TruVari
-
-- IGV: Interesting gene to focus in on- MUC2 (~100KB gene, chromosome 11 p-arm)
-- R
-
-Analysis: 
-How much better is the new vs. old BAM? 
-How much better is one aligner?
-How much better is increased coverage? 
+### Workflow:
+![alt text](https://github.com/NCBI-Hackathons/AssesSV/blob/master/graphics/Workflow_Full.png)
