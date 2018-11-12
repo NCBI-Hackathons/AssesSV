@@ -42,9 +42,12 @@ minimap2 -t 16 \
 ### Caller:
 #### Sniffles settings:
 ```bash
+sniffles -s 3 --skip_parameter_estimation -m !{bam} -v "!{basename}.!{depth}x.Sniffles_s3_ignoreParam.vcf"
 ```
 #### pbsv settings:
 ```bash
+pbsv discover !{bam} !{basename}.!{depth}x.pbsv.svsig.gz
+pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.vcf
 ```
 
 Figures:
