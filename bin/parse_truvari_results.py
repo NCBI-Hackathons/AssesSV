@@ -17,4 +17,4 @@ with open ("truvari_summary.txt", "w") as outfile:
             f1 = lines[176].split()[1]
             precision = lines[177].split()[1]
             recall = lines[178].split()[1]
-            outfile.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(os.path.splitext(os.path.basename(f))[0], FN, FP, TP, f1, precision, recall))
+            outfile.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(os.path.splitext(os.path.basename(f))[0], FN, FP, TP, f1, precision, recall))
