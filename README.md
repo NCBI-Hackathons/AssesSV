@@ -8,11 +8,11 @@ Pacific Biosciences has recently released two ~30-fold datasets of high-fidelity
 
 ## Datasets: 
 
-[PacBio HG002 High-Fidelity QV20 10 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_10kb/)
-[PacBio HG002 High-Fidelity QV20 15 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_15kb/)
-[PacBio HG002 10-50 kbp Subreads, ~70-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_MtSinai_NIST/PacBio_fasta/)
+- [PacBio HG002 High-Fidelity QV20 10 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_10kb/)
+- [PacBio HG002 High-Fidelity QV20 15 kbp CCS, ~30-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_15kb/)
+- [PacBio HG002 10-50 kbp Subreads, ~70-fold coverage](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG002_NA24385_son/PacBio_MtSinai_NIST/PacBio_fasta/)
 
-[HG002 Tier 1 SV calls, version 0.6]()
+- [HG002 Tier 1 SV calls, version 0.6]()
 
 ## Conditions:
 
