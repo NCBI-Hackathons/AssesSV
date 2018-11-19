@@ -28,7 +28,7 @@ process downsample{
     '''
     frac=$( bc -l <<< "scale=16; !{depth}/!{input_depth}" )
 
-    if [[ $frac < 0.9 ]]; then 
+    if (( $(echo "$frac > 0.9" |bc -l) )); then 
         sambamba view -t !{task.cpus} -f bam -s $frac -o "!{basename}.!{depth}x.bam" "!{bam}"
     else
         ln -s "!{bam}" "!{basename}_!{depth}x.bam"
