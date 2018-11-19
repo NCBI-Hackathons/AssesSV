@@ -1,10 +1,10 @@
 /*
  * pipeline input parameters
  */
-params.input_bams = "/home/ubuntu/data/HG002.10kb.Q20.GRCh38.pbmm2.bam"
-params.outdir = "/home/ubuntu/pipeline-output"
-params.reference_fasta_path = "/home/ubuntu/data/reference/hs37d5.fa"
-params.bed = "/home/ubuntu/data/giab-SV/test.HG002_SVs_Tier1_v0.6.bed"
+params.input_bams = ""
+params.outdir = "./pipeline-output"
+params.reference_fasta_path = "hs37d5.fa"
+params.bed = "test.HG002_SVs_Tier1_v0.6.bed"
 
 println "comparing input bams: $params.input_bams with $params.truth_vcf"
 println "outdir: $params.outdir"
