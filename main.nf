@@ -47,7 +47,7 @@ process sniffles {
     set depth, basename, file(bam) from bam_sniffles
 
     output:
-    set depth, basename, val("sniffles"), file("*sort.vcf.gz"),file("*sort.vcf.gz.tbi") into sniffles_vcf_ch
+    set depth, basename, val("sniffles"), file("*sort.vcf.gz"), file("*sort.vcf.gz.tbi") into (sniffles_vcf_ch, sniffles_vcf_ch2)
 
     shell:
     '''
@@ -69,7 +69,7 @@ process pbsv {
     set depth, basename, file(bam) from  bam_pbsv
 
     output:
-    set depth, basename, val("pbsv"), file("*.pbsv.sort.vcf.gz"), file("*.pbsv.sort.vcf.gz.tbi") into pbsv_vcf_ch
+    set depth, basename, val("pbsv"), file("*.pbsv.sort.vcf.gz"), file("*.pbsv.sort.vcf.gz.tbi") into (pbsv_vcf_ch, pbsv_vcf_ch2)
 
     shell:
     '''
@@ -107,6 +107,7 @@ process truvari {
  */
 process combine_truvari_tp {
     publishDir "${params.outdir}/truvari", mode: 'copy'
+
     input:
     file ('*') from truvari_tp_base_ch.flatten().toList()
 
@@ -124,6 +125,7 @@ process combine_truvari_tp {
  */
 process combine_truvari_giab {
     publishDir "${params.outdir}/truvari", mode: 'copy'
+
     input:
     file ('*') from truvari_giab_ch.flatten().toList()
 
@@ -133,5 +135,43 @@ process combine_truvari_giab {
     shell:
     '''
     parse_truvari_results.py .
+    '''
+}
+
+/*
+ * adds metadata to output file
+ */
+process annotate_vcfs {
+
+    input:
+    set depth, basename, caller, file(vcf), file(tbi) from pbsv_vcf_ch2.mix(sniffles_vcf_ch2)
+
+    output:
+    file "*.tsv" into annotated_vcfs_ch
+
+    shell:
+    '''
+    for f in *.vcf.gz; do
+      zcat "${f}" | grep -v '^#' | sed 's/^/!{basename}\t!{caller}\t!{depth}\t/' >> !{basename}_!{caller}_!{depth}.tsv
+    done
+    '''
+}
+
+/*
+ * combines vcf files for easy comparison
+ */
+process concatenate_vcfs {
+
+    publishDir "${params.outdir}", mode: 'copy'
+
+    input:
+    file('*') from annotated_vcfs_ch.toList()
+
+    output:
+    file('combined_vcfs.tsv')
+
+    shell:
+    '''
+    cat *.tsv > combined_vcfs.tsv
     '''
 }
