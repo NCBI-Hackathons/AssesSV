@@ -81,10 +81,11 @@ process pbsv {
 }
 
 /*
- * truevari compares one vcf with another to generate true positive, false positive and true negative rates
+ * truvari compares one vcf with another to generate true positive, false positive and true negative rates
  */
 process truvari {
      publishDir "${params.outdir}/truvari", mode:'copy'
+     errorStrategy 'finish'
 
      input:
      set depth, basename, caller, file(vcf), file(tbi) from pbsv_vcf_ch.mix(sniffles_vcf_ch)
