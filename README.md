@@ -52,3 +52,8 @@ pbsv call !{ref} !{basename}.!{depth}x.pbsv.svsig.gz !{basename}.!{depth}x.pbsv.
 
 ### Workflow:
 ![alt text](https://github.com/NCBI-Hackathons/AssesSV/blob/master/graphics/Workflow_Full.png)
+
+### Running the pipeline
+ - the nextflow pipeline can be run by modifying the run_pipeline.sh script for your local environment
+ - for full reproducibility you'll need to create a conda environment like this:
+   - conda create --name assessv --file conda_environment.txt

@@ -70,6 +70,7 @@ https://conda.anaconda.org/bioconda/linux-64/sambamba-0.6.8-h682856c_1.tar.bz2
 https://conda.anaconda.org/bioconda/linux-64/sniffles-1.0.10-hd4ff3c4_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/sqlite-3.25.2-h7b6447c_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/xorg-libx11-1.6.6-h470a237_0.tar.bz2
+https://conda.anaconda.org/bioconda/linux-64/bcftools-1.9-h4da6232_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/fontconfig-2.13.1-h65d0f4c_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/gst-plugins-base-1.12.5-hde13a9d_0.tar.bz2
 https://conda.anaconda.org/bioconda/linux-64/htslib-1.9-hc238db4_4.tar.bz2
@@ -108,6 +109,7 @@ https://conda.anaconda.org/conda-forge/noarch/py-1.7.0-py_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/pycosat-0.6.3-py27h14c3975_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/pycparser-2.18-py27_1.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pyparsing-2.3.0-py_0.tar.bz2
+https://conda.anaconda.org/bioconda/linux-64/pysam-0.15.1-py27h0380709_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/pysocks-1.6.8-py27_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/python-levenshtein-0.12.0-py27h470a237_0.tar.bz2
 https://conda.anaconda.org/conda-forge/noarch/pytz-2018.7-py_0.tar.bz2
@@ -193,3 +195,4 @@ https://conda.anaconda.org/conda-forge/linux-64/mkl_fft-1.0.6-py27_0.tar.bz2
 https://conda.anaconda.org/conda-forge/linux-64/mkl_random-1.0.2-py27_0.tar.bz2
 https://repo.anaconda.com/pkgs/main/linux-64/numpy-1.15.4-py27h1d66e8a_0.tar.bz2
 https://conda.anaconda.org/bioconda/linux-64/multiqc-1.6-py27h24bf2e0_0.tar.bz2
+https://conda.anaconda.org/conda-forge/linux-64/pandas-0.23.4-py27hf8a1672_0.tar.bz2
